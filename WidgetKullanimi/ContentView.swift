@@ -8,15 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var alinanVeri = ""
+    @State private var tf = ""
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Gelen veri: \(alinanVeri)")
+                .foregroundColor(.white)
+                .font(.system(size: 30))
+                .background(.blue)
+            
+            
+            TextField("Veri Giriniz", text: $tf)
+                .textFieldStyle(MyStyle())
+                .padding()
+            Button("Veriyi Al"){
+                alinanVeri = tf
+            }.foregroundColor(.white)
+                .padding()
+                .background(.red)
+                .cornerRadius(8)
         }
-        .padding()
     }
+}
+
+struct MyStyle : TextFieldStyle {
+    
+    func _body(configuartion:TextField<Self._Label>) -> some View {
+        configuartion
+            .padding()
+            .background(.green)
+            .cornerRadius(20)
+            .shadow(color: .gray, radius: 10)
+            .foregroundColor(.white)
+        
+    }
+
 }
 
 #Preview {
