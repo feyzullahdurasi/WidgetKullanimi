@@ -8,42 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var alinanVeri = ""
-    @State private var tf = ""
+    
+    @State private var resimDurum = false
+    @State private var resim = "uzgun"
+    
     var body: some View {
-        VStack {
-            Text("Gelen veri: \(alinanVeri)")
-                .foregroundColor(.white)
-                .font(.system(size: 30))
-                .background(.blue)
+        VStack(spacing: 100)
+        {
+            Image(resim).resizable().frame(width: 100, height: 100)
             
-            
-            TextField("Veri Giriniz", text: $tf)
-                .textFieldStyle(MyStyle())
+            Toggle("Mutlu Ol Switch'i ->", isOn: $resimDurum)
+                .onChange(of: resimDurum, perform: { Value in
+                    if Value == true {
+                        resim = "mutlu"
+                    }else{
+                        resim = "uzgun"
+                    }
+                })
                 .padding()
-            Button("Veriyi Al"){
-                alinanVeri = tf
-            }.foregroundColor(.white)
-                .padding()
-                .background(.red)
-                .cornerRadius(8)
+                .toggleStyle(SwitchToggleStyle(tint: .black))
         }
     }
 }
 
-struct MyStyle : TextFieldStyle {
-    
-    func _body(configuartion:TextField<Self._Label>) -> some View {
-        configuartion
-            .padding()
-            .background(.green)
-            .cornerRadius(20)
-            .shadow(color: .gray, radius: 10)
-            .foregroundColor(.white)
-        
-    }
-
-}
 
 #Preview {
     ContentView()
